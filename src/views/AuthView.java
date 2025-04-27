@@ -21,6 +21,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class AuthView{
 	
@@ -211,8 +212,8 @@ public class AuthView{
 		ventana.setLayout(null);
 		ventana.setLocationRelativeTo(null);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Font fuente = new Font("Britannic",Font.BOLD,16);
 		
+		Font fuente = new Font("Britannic",Font.BOLD,16);
 		JPanel mipanel = new JPanel();
 		
 		mipanel.setBackground(Color.decode("#EFF3EA"));
@@ -221,203 +222,298 @@ public class AuthView{
 		mipanel.setLocation(0,0);
 		mipanel.setLayout(null); //QUITA EL MOLDE
 		
-//		mipanel.setPreferredSize(new Dimension(500,800));
-		//---------------------------
 		//TITULO
-		JLabel titulo = new JLabel("REGISTRO");
-		titulo.setSize(200, 30);
+		JLabel titulo = new JLabel("REGISTRO DE USUARIO");
+		titulo.setSize(600, 60);
 		titulo.setOpaque(true);
 		titulo.setBackground(Color.decode("#D9DFC6")); 
-		titulo.setLocation(162, 62);
+		titulo.setLocation(186, 70);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
-		titulo.setFont(new Font("Britannic",Font.BOLD,24));
+		titulo.setFont(new Font("Britannic",Font.BOLD,40));
 		
 		mipanel.add(titulo);
-		//-------------------
-		//NOMBRE
-		JLabel nombreLabel = new JLabel("Nombre de Usuario");
-		nombreLabel.setSize(320, 35);
-		nombreLabel.setOpaque(true);
-		nombreLabel.setBackground(Color.decode("#FBFFE4")); 
-		nombreLabel.setLocation(102, 132);
-		nombreLabel.setHorizontalAlignment(JLabel.CENTER);
-		nombreLabel.setFont(fuente);
 		
-		mipanel.add(nombreLabel);
+		JLabel email = new JLabel("Correo Electrónico");
+		email.setFont(new Font("Britannic", Font.BOLD, 16));
+		email.setBounds(23, 199, 223, 40);
+		email.setBackground(Color.decode("#FBFFE4")); 
+		email.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		email.setOpaque(true);
+		mipanel.add(email);
 		
-		JTextField nombreField = new JTextField();
-		nombreField.setSize(300, 30);
-		nombreField.setLocation(112, 182);
-		nombreField.setFont(fuente);
+		JTextField emailField = new JTextField();
+		emailField.setBounds(23, 263, 265, 32);
+		mipanel.add(emailField);
+		emailField.setColumns(10);
 		
-		mipanel.add(nombreField);
-		//-----------------------
-		//BIO
+		JLabel contra_alta = new JLabel("Contraseña");
+		contra_alta.setOpaque(true);
+		contra_alta.setFont(new Font("Britannic", Font.BOLD, 16));
+		contra_alta.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		contra_alta.setBackground(new Color(251, 255, 228));
+		contra_alta.setBounds(23, 322, 223, 40);
+		mipanel.add(contra_alta);
 		
-		JLabel bioLabel = new JLabel("BIO");
-		bioLabel.setSize(320, 30);
-		bioLabel.setLocation(102, 217);
-		bioLabel.setHorizontalAlignment(JLabel.CENTER);
-		bioLabel.setFont(fuente);
+		JPasswordField nueva_contraField = new JPasswordField();
+		nueva_contraField.setBounds(23, 384, 265, 32);
+		mipanel.add(nueva_contraField);
 		
-		mipanel.add(bioLabel);	
+		JLabel nombre = new JLabel("Nombre Completo");
+		nombre.setOpaque(true);
+		nombre.setFont(new Font("Britannic", Font.BOLD, 16));
+		nombre.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		nombre.setBackground(new Color(251, 255, 228));
+		nombre.setBounds(362, 199, 223, 40);
+		mipanel.add(nombre);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(112, 252, 300, 70);
-		mipanel.add(textArea);
-		//--------------------------
-		//PREFERENCIAS
+		JTextField nombre_field = new JTextField();
+		nombre_field.setColumns(10);
+		nombre_field.setBounds(362, 263, 265, 32);
+		mipanel.add(nombre_field);
 		
-		JLabel pref_label = new JLabel("PREFERENCIAS");
-		pref_label.setBounds(102, 332, 320, 30);
-		pref_label.setHorizontalAlignment(JLabel.CENTER);
-		pref_label.setBorder(BorderFactory.createLineBorder(Color.decode("#FBFFE4"),4));		
-		pref_label.setFont(fuente);
+		JButton aceptar = new JButton("APLICAR Y ACEPTAR");
+		aceptar.setSize(310, 65);
+		aceptar.setLocation(530, 638);
+		aceptar.setHorizontalAlignment(JLabel.CENTER);
+		aceptar.setBackground(Color.decode("#B9B28A"));
+		aceptar.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		aceptar.setFont(new Font("Dialog", Font.BOLD, 18));
+		mipanel.add(aceptar);
 		
-		mipanel.add(pref_label);
+		JLabel correo = new JLabel(new ImageIcon("correo.png"));
+		correo.setBounds(183, 148, 183, 136);
+		mipanel.add(correo);
 		
-		JCheckBox dulces = new JCheckBox("Dulces");
-		dulces.setBounds(112, 349, 150, 50);
-		dulces.setFont(new Font("Britannic",Font.BOLD,14));
-		dulces.setOpaque(false);
+		JLabel contra = new JLabel(new ImageIcon("contraseña.png"));
+		contra.setBounds(183, 280, 183, 136);
+		mipanel.add(contra);
 		
-		mipanel.add(dulces);
+		JLabel lblNombreDeUsuario = new JLabel("Nombre de Usuario");
+		lblNombreDeUsuario.setOpaque(true);
+		lblNombreDeUsuario.setFont(new Font("Britannic", Font.BOLD, 16));
+		lblNombreDeUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		lblNombreDeUsuario.setBackground(new Color(251, 255, 228));
+		lblNombreDeUsuario.setBounds(362, 322, 223, 40);
+		mipanel.add(lblNombreDeUsuario);
 		
-		JCheckBox salado = new JCheckBox("Salado");
-		salado.setBounds(212, 349, 150, 50);
-		salado.setFont(new Font("Britannic",Font.BOLD,14));
-		salado.setOpaque(false);
+		JTextField usuario_field = new JTextField();
+		usuario_field.setColumns(10);
+		usuario_field.setBounds(362, 384, 265, 32);
+		mipanel.add(usuario_field);
 		
-		mipanel.add(salado);
+		JLabel telefono = new JLabel("Teléfono (Opcional)");
+		telefono.setOpaque(true);
+		telefono.setFont(new Font("Britannic", Font.BOLD, 16));
+		telefono.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		telefono.setBackground(new Color(251, 255, 228));
+		telefono.setBounds(710, 199, 223, 40);
+		mipanel.add(telefono);
 		
-		JCheckBox saludable = new JCheckBox("Saludable");
-		saludable.setBounds(312, 349, 150, 50);
-		saludable.setFont(new Font("Britannic",Font.BOLD,14));
-		saludable.setBorder(BorderFactory.createLineBorder(Color.RED, 8));		
-		saludable.setOpaque(false);
+		JTextField textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(710, 263, 265, 32);
+		mipanel.add(textField_2);
 		
-		mipanel.add(saludable);
-		//----------------------------
-		//TERMINOS
+		JLabel nacimiento = new JLabel("Fecha de Nacimiento");
+		nacimiento.setOpaque(true);
+		nacimiento.setFont(new Font("Britannic", Font.BOLD, 16));
+		nacimiento.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		nacimiento.setBackground(new Color(251, 255, 228));
+		nacimiento.setBounds(710, 322, 223, 40);
+		mipanel.add(nacimiento);
 		
-		JLabel terminos = new JLabel("TÉRMINOS");
-		terminos.setBounds(102, 392, 320, 30);
-		terminos.setHorizontalAlignment(JLabel.CENTER);
-		terminos.setBorder(BorderFactory.createLineBorder(Color.decode("#FBFFE4"),4));		
-		terminos.setFont(fuente);
+		JComboBox dia = new JComboBox(new Object[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"});
+		dia.setFont(new Font("Britannic", Font.PLAIN, 17));
+		dia.setBounds(710, 384, 59, 32);
+		mipanel.add(dia);
 		
-		mipanel.add(terminos);
+		JComboBox mes = new JComboBox(new Object[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"});
+		mes.setFont(new Font("Dialog", Font.PLAIN, 17));
+		mes.setBounds(779, 384, 59, 32);
+		mipanel.add(mes);
 		
-		JRadioButton terms1 = new JRadioButton("Acepto los términos", true);
+		JComboBox año = new JComboBox(new Object[]{"2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997"});
+		año.setFont(new Font("Dialog", Font.PLAIN, 17));
+		año.setBounds(848, 384, 85, 32);
+		mipanel.add(año);
+		
+		JButton btn_login = new JButton("IR A LOGIN");
+		btn_login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.dispose();
+				AuthView.this.login();
+			}
+		});
+		btn_login.setHorizontalAlignment(SwingConstants.CENTER);
+		btn_login.setFont(new Font("Dialog", Font.BOLD, 18));
+		btn_login.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		btn_login.setBackground(Color.decode("#FBFFE4"));
+		btn_login.setBounds(166, 638, 310, 65);
+		mipanel.add(btn_login);
+		
+		JLabel verificar_contra = new JLabel("Verificar Contraseña");
+		verificar_contra.setOpaque(true);
+		verificar_contra.setFont(new Font("Dialog", Font.BOLD, 16));
+		verificar_contra.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		verificar_contra.setBackground(new Color(251, 255, 228));
+		verificar_contra.setBounds(23, 445, 223, 40);
+		mipanel.add(verificar_contra);
+		
+		JLabel contra_1 = new JLabel(new ImageIcon("contraseña.png"));
+		contra_1.setBounds(183, 403, 183, 136);
+		mipanel.add(contra_1);
+		
+		JPasswordField passwordField = new JPasswordField();
+		passwordField.setBounds(23, 507, 265, 32);
+		mipanel.add(passwordField);
+		
+		JLabel empresa = new JLabel("Empresa");
+		empresa.setOpaque(true);
+		empresa.setFont(new Font("Dialog", Font.BOLD, 16));
+		empresa.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		empresa.setBackground(new Color(251, 255, 228));
+		empresa.setBounds(362, 445, 223, 40);
+		mipanel.add(empresa);
+		
+		JTextField empresa_field = new JTextField();
+		empresa_field.setColumns(10);
+		empresa_field.setBounds(362, 507, 265, 32);
+		mipanel.add(empresa_field);
+		
+		JLabel ambito_empresa = new JLabel("Ámbito de la Empresa");
+		ambito_empresa.setOpaque(true);
+		ambito_empresa.setFont(new Font("Dialog", Font.BOLD, 16));
+		ambito_empresa.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		ambito_empresa.setBackground(new Color(251, 255, 228));
+		ambito_empresa.setBounds(710, 445, 223, 40);
+		mipanel.add(ambito_empresa);
+		
+		JComboBox ambito_comboBox = new JComboBox(new Object[]{"Tecnología", "Salud", "Educación", "Comercio", "Otro"});
+		ambito_comboBox.setFont(new Font("Dialog", Font.PLAIN, 17));
+		ambito_comboBox.setBounds(710, 507, 223, 32);
+		mipanel.add(ambito_comboBox);
+		
+		JRadioButton terms1 = new JRadioButton("Acepto los términos y condiciones", true);
 		terms1.setSize(240,40);
-		terms1.setLocation(102,422);
+		terms1.setLocation(226,589);
 		terms1.setOpaque(false);
 		mipanel.add(terms1);
 		
-		JRadioButton terms2 = new JRadioButton("No acepto los términos");
+		JRadioButton terms2 = new JRadioButton("No acepto los términos y condiciones");
 		terms2.setSize(240,40);
-		terms2.setLocation(272, 422);
+		terms2.setLocation(530, 589);
 		terms2.setOpaque(false);
 		mipanel.add(terms2);
 		
 		ButtonGroup terms_group = new ButtonGroup();
 		terms_group.add(terms1);
 		terms_group.add(terms2);
-		//----------------------------
-		//COLONIAS
-		String dataset []= {"Camino Real", "Centro", "La Fuente", "Villas del Encanto", "Panteón"};
-		JComboBox colonias = new JComboBox(dataset);
-		colonias.setSize(320, 22);
-		colonias.setLocation(102,462);
-		colonias.setOpaque(true);
-		mipanel.add(colonias);
 		
-		//----------------------------
-		//BOTON
-		JButton acceder = new JButton("CREAR CUENTA");
-		acceder.setSize(320, 40);
-		acceder.setLocation(102, 502);
-		acceder.setBackground(Color.decode("#FBFFE4"));
-		acceder.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
-		acceder.setFont(new Font("Britannic",Font.BOLD,16));
-		//acceder.setBorder(BorderFactory.createLineBorder(Color.RED, 8));		
-
-		acceder.addActionListener(new ActionListener() {
+		aceptar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String correo = emailField.getText();
+				String nombre = nombre_field.getText();
+				String usuario = usuario_field.getText();
+				String contra = new String(nueva_contraField.getPassword());
+				String confirmContra = new String(passwordField.getPassword());
+				String empresa = empresa_field.getText();
 				
-				String nombre = nombreField.getText();
-				String texto  = textArea.getText();
-				
-				//VALIDACION DE TÉRMINOS
-				if (terms2.isSelected()) {
-					JOptionPane.showMessageDialog(null, "Debes aceptar los términos y condiciones para continuar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		        if(terms2.isSelected()) {
+		            JOptionPane.showMessageDialog(ventana, 
+		                "Debe aceptar los términos y condiciones para registrarse.", "Términos no aceptados", JOptionPane.WARNING_MESSAGE);
+		            return;
+		        }
+		        
+				if(correo.equals("") || nombre.equals("") || usuario.equals("") || contra.equals("") || confirmContra.equals("") || empresa.equals("")) {
+					emailField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					nombre_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					usuario_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					empresa_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
 					return;
-				}
-				
-				//VALIDACIÓN DE PREFERENCIAS
-				if (!dulces.isSelected() && !salado.isSelected() && !saludable.isSelected()) {
-					JOptionPane.showMessageDialog(null, "Por favor, selecciona al menos una preferencia.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				
-				if (nombre.equals("") && texto.equals("")) {
-					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					textArea.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					JOptionPane.showMessageDialog(null, "Por favor, rellene ambos campos.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+				} else if (correo.equals("")) {
+					emailField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					JOptionPane.showMessageDialog(null, "El campo 'Correo Electrónico' esta vacio.", "Falta Correo Electrónico", JOptionPane.WARNING_MESSAGE);
 					return;
 				} else if (nombre.equals("")) {
-					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					textArea.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					JOptionPane.showMessageDialog(null, "Rellene el campo de 'Nombre de Usuario'.", "Falta Nombre de Usuario", JOptionPane.WARNING_MESSAGE);
+					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nombre_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					JOptionPane.showMessageDialog(null, "El campo 'Nombre Completo' esta vacio.", "Falta Nombre Completo", JOptionPane.WARNING_MESSAGE);
 					return;
-				} else if (texto.equals("")) {
-					nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					textArea.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					JOptionPane.showMessageDialog(null, "Rellene el campo 'BIO'.", "Falta BIO", JOptionPane.WARNING_MESSAGE);
+				} else if (usuario.equals("")) {
+					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					usuario_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					JOptionPane.showMessageDialog(null, "El campo 'Nombre de Usuario' esta vacio.", "Falta Nombre de Usuario", JOptionPane.WARNING_MESSAGE);
 					return;
+				} else if (contra.equals("")) {
+					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					JOptionPane.showMessageDialog(null, "El campo 'Contraseña' esta vacio.", "Falta Contraseña", JOptionPane.WARNING_MESSAGE);
+					return;
+				} else if (confirmContra.equals("")) {
+					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					JOptionPane.showMessageDialog(null, "El campo 'Verificar Contraseña' esta vacio.", "Falta Verificar Contraseña", JOptionPane.WARNING_MESSAGE);
+				} else if (empresa.equals("")) {
+					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					empresa_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					JOptionPane.showMessageDialog(null, "El campo 'Empresa' esta vacio.", "Falta Empresa", JOptionPane.WARNING_MESSAGE);
 				}
 				
-				//SI TODO ES VALIDO
-				nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-				textArea.setBorder(BorderFactory.createLineBorder(Color.green,3));
-				JOptionPane.showMessageDialog(null, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+		        if(!contra.equals(confirmContra)) {
+		            nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		            passwordField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		            JOptionPane.showMessageDialog(ventana, 
+		                "Las contraseñas no coinciden.", 
+		                "Error de Confirmación", 
+		                JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+				
+				emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				JOptionPane.showMessageDialog(null, "Se han aplicado los cambios exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+				
+				
 			}
 		});
-		
-		
-		mipanel.add(acceder);
-		
-		//BOTON
-		JButton ir_login = new JButton("IR A LOGIN");
-		ir_login.setSize(320, 40);
-		ir_login.setLocation(102, 602);
-		ir_login.setBackground(Color.decode("#B9B28A"));
-		ir_login.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
-		ir_login.setFont(new Font("Britannic",Font.BOLD,16));
-		
-		ir_login.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ventana.dispose();
-				AuthView.this.login();
-			}
-		});
-		
-		mipanel.add(ir_login);
-
-		JLabel diseño = new JLabel();
-		diseño.setIcon(new ImageIcon("img/diseño.jpg"));
-		diseño.setBounds(540, -76, 450, 1000);
-		mipanel.add(diseño);
-		
 		
 		ventana.add(mipanel);
 		ventana.repaint();
 		ventana.revalidate();
-		
 	}
 	
 	public void forgot() {
