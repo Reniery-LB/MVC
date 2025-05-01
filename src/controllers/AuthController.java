@@ -10,6 +10,10 @@ public class AuthController {
 		vista = new AuthView();
 	}
 	
+	public void inicio() {
+		vista.inicio();
+	}
+	
 	public void login() {
 		vista.login();
 	}

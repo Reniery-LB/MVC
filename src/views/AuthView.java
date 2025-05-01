@@ -23,9 +23,111 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import models.AuthModel;
+
 public class AuthView{
 	
 	public AuthView() {
+	}
+	
+	public void inicio() {
+		JFrame ventana = new JFrame();
+		
+		ventana.setTitle("DISEÑO");
+		ventana.setVisible(true);
+		ventana.setSize(1000,1000);
+		ventana.setLayout(null);
+		ventana.setLocationRelativeTo(null);
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel mipanel = new JPanel();
+		mipanel.setBounds(0, 0, 1000, 1000);
+		mipanel.setBackground(Color.decode("#284B63"));
+		mipanel.setLayout(null);
+		
+		JLabel titulo = new JLabel("INICIO");
+		titulo.setBackground(Color.decode("#D9DFC6"));
+		titulo.setOpaque(true);
+		titulo.setFont(new Font("Britannic", Font.BOLD, 42));
+		titulo.setHorizontalAlignment(JLabel.CENTER);
+		titulo.setForeground(Color.BLACK);
+		titulo.setBounds(288, 10, 410, 93);
+		mipanel.add(titulo);
+		
+		JLabel dirigirse = new JLabel("Dirigirse a");
+		dirigirse.setForeground(Color.BLACK);
+		dirigirse.setFont(new Font("Britannic", Font.BOLD, 32));
+		dirigirse.setBounds(414, 113, 161, 93);
+		mipanel.add(dirigirse);
+		
+		JButton iniciar_sesion = new JButton("INICIAR SESIÓN");
+		iniciar_sesion.setForeground(new Color(255, 255, 255));
+		iniciar_sesion.setBackground(Color.decode("#B9B28A"));
+		iniciar_sesion.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		iniciar_sesion.setFont(new Font("Britannic", Font.BOLD, 18));
+		iniciar_sesion.setBounds(229, 371, 183, 58);
+		mipanel.add(iniciar_sesion);
+		
+		iniciar_sesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventana.dispose();
+				AuthView.this.login();
+			}
+		});
+		
+		JButton registrarse = new JButton("REGISTRARSE");
+		registrarse.setForeground(Color.WHITE);
+		registrarse.setFont(new Font("Britannic", Font.BOLD, 18));
+		registrarse.setBackground(Color.decode("#B9B28A"));
+		registrarse.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+		registrarse.setBounds(578, 371, 183, 58);
+		mipanel.add(registrarse);
+		
+		registrarse.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AuthView.this.register();
+			}
+		});
+		
+//		JButton recuperar = new JButton("     RECUPERACIÓN DE CUENTA     ");
+//		recuperar.setIcon(new ImageIcon("img/recuperacion.png"));
+//		recuperar.setForeground(Color.BLACK);
+//		recuperar.setFont(new Font("Britannic", Font.BOLD, 18));
+//		recuperar.setBackground(Color.decode("#F9F6E6"));
+//		recuperar.setHorizontalTextPosition(JLabel.RIGHT);
+//		recuperar.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
+//		recuperar.setBounds(288, 552, 395, 58);
+//		mipanel.add(recuperar);
+//		
+//		recuperar.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				router("recuperacion");
+//				
+//			}
+//		});
+		
+		JLabel icon_acceder = new JLabel(new ImageIcon("img/acceder.png"));
+		icon_acceder.setBounds(216, 225, 183, 136);
+		mipanel.add(icon_acceder);
+		
+		JLabel icon_registrarse = new JLabel(new ImageIcon("img/registrarse.png"));
+		icon_registrarse.setBounds(578, 225, 183, 136);
+		mipanel.add(icon_registrarse);
+		
+		JLabel fondo = new JLabel();
+		fondo.setIcon(new ImageIcon("img/fondoInicio.jpg"));
+		fondo.setBounds(0, 0, 1000, 1000);
+		mipanel.add(fondo);
+		
+		ventana.add(mipanel);
+		ventana.repaint();
+		ventana.revalidate();
 	}
 	
 	public void login() {
@@ -148,25 +250,37 @@ public class AuthView{
 				String nombre = nombreField.getText();
 				String password = new String(contraField.getPassword());
 				
-				if(nombre.equals("") && password.equals("")) {
-					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					JOptionPane.showMessageDialog(null, "Por favor, rellene ambos campos.","Campos Vaciós", JOptionPane.WARNING_MESSAGE);
-					
-				} else if (nombre.equals("")) {
-					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					JOptionPane.showMessageDialog(null, "Rellene el campo de 'Nombre de Usuario'.", "Falta Nombre de Usuario", JOptionPane.WARNING_MESSAGE);
-				} else if (password.equals("")) {
-					nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					JOptionPane.showMessageDialog(null, "Rellene el campo 'Contraseña'.", "Falta Contraseña", JOptionPane.WARNING_MESSAGE);
-				}
+//				if(nombre.equals("") && password.equals("")) {
+//					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+//					contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+//					JOptionPane.showMessageDialog(null, "Por favor, rellene ambos campos.","Campos Vaciós", JOptionPane.WARNING_MESSAGE);
+//					
+//				} else if (nombre.equals("")) {
+//					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+//					contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+//					JOptionPane.showMessageDialog(null, "Rellene el campo de 'Nombre de Usuario'.", "Falta Nombre de Usuario", JOptionPane.WARNING_MESSAGE);
+//				} else if (password.equals("")) {
+//					nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+//					contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+//					JOptionPane.showMessageDialog(null, "Rellene el campo 'Contraseña'.", "Falta Contraseña", JOptionPane.WARNING_MESSAGE);
+//				}
+//				
+//				else {
+//					nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+//					contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+//					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+//				}
 				
-				else {
-					nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+				if(flag1 && flag2) {
+					
+					AuthModel am = new AuthModel();
+					boolean is_login = am.login(nombreField.getText(), password);
+					
+					if(is_login) {
+						JOptionPane.showMessageDialog(null, "Bienvenido");
+					} else {
+						JOptionPane.showMessageDialog(null, "Error al acceder", "verificar correo y contraseña", JOptionPane.WARNING_MESSAGE);
+					}
 				}
 		}
 	});
@@ -197,6 +311,22 @@ public class AuthView{
 		diseño.setIcon(new ImageIcon("img/diseño.jpg"));
 		diseño.setBounds(540, -76, 450, 1000);
 		mipanel.add(diseño);
+		
+		JButton regresar = new JButton();
+		regresar.setIcon(new ImageIcon("img/regresar.png"));
+		regresar.setOpaque(true);
+		regresar.setBackground(new Color(185, 178, 138));
+		regresar.setBounds(10, 10, 65, 40);
+		mipanel.add(regresar);
+		
+		regresar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventana.dispose();
+				AuthView.this.inicio();
+			}
+		});
 		
 		ventana.add(mipanel);
 		ventana.repaint();
@@ -508,6 +638,22 @@ public class AuthView{
 				JOptionPane.showMessageDialog(null, "Se han aplicado los cambios exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 				
 				
+			}
+		});
+		
+		JButton regresar = new JButton();
+		regresar.setIcon(new ImageIcon("img/regresar.png"));
+		regresar.setOpaque(true);
+		regresar.setBackground(Color.decode("#B9B28A"));
+		regresar.setBounds(10, 10, 65, 40);
+		mipanel.add(regresar);
+		
+		regresar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventana.dispose();
+				AuthView.this.inicio();
 			}
 		});
 		
