@@ -163,7 +163,7 @@ public class AuthView{
 		mipanel.add(titulo);
 		//-------------------
 		//NOMBRE
-		JLabel nombreLabel = new JLabel("Nombre de Usuario");
+		JLabel nombreLabel = new JLabel("Correro Electronico");
 		nombreLabel.setSize(150, 30);
 		nombreLabel.setOpaque(true);
 		nombreLabel.setBackground(Color.decode("#F9F6E6")); 
@@ -245,17 +245,22 @@ public class AuthView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				Boolean flag1 = false, flag2 = false;
-				String nombre = nombreField.getText();
+				String email = nombreField.getText();
 				String password = new String(contraField.getPassword());
 				
-//				if(nombre.equals("") && password.equals("")) {
+				if (email.isEmpty() || password.isEmpty()) {
+					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+					JOptionPane.showMessageDialog(null, "Por favor, rellene ambos campos.", "Campos Vacios", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
+//				if(email.equals("") && password.equals("")) {
 //					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
 //					contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
 //					JOptionPane.showMessageDialog(null, "Por favor, rellene ambos campos.","Campos Vaciós", JOptionPane.WARNING_MESSAGE);
 //					
-//				} else if (nombre.equals("")) {
+//				} else if (email.equals("")) {
 //					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
 //					contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
 //					JOptionPane.showMessageDialog(null, "Rellene el campo de 'Nombre de Usuario'.", "Falta Nombre de Usuario", JOptionPane.WARNING_MESSAGE);
@@ -271,17 +276,18 @@ public class AuthView{
 //					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
 //				}
 				
-				if(flag1 && flag2) {
-					
-					AuthModel am = new AuthModel();
-					boolean is_login = am.login(nombreField.getText(), password);
-					
-					if(is_login) {
-						JOptionPane.showMessageDialog(null, "Bienvenido");
+					AuthModel modelo = new AuthModel();
+	
+					if(modelo.login(email, password)) {
+						nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+						contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
+						JOptionPane.showMessageDialog(null, "Bienvenido", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						JOptionPane.showMessageDialog(null, "Error al acceder", "verificar correo y contraseña", JOptionPane.WARNING_MESSAGE);
+						nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+						contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
+						JOptionPane.showMessageDialog(null, "Error al acceder", "Verificar Correo y Contraseña", JOptionPane.WARNING_MESSAGE);
 					}
-				}
+			
 		}
 	});
 		
@@ -543,102 +549,58 @@ public class AuthView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String correo = emailField.getText();
-				String nombre = nombre_field.getText();
-				String usuario = usuario_field.getText();
-				String contra = new String(nueva_contraField.getPassword());
-				String confirmContra = new String(passwordField.getPassword());
-				String empresa = empresa_field.getText();
-				
-		        if(terms2.isSelected()) {
+		        String nombre = nombre_field.getText();
+		        String email = emailField.getText();
+		        String usuario = usuario_field.getText();
+		        String password = new String(nueva_contraField.getPassword());
+		        String confirmPassword = new String(passwordField.getPassword());
+		        String empresa = empresa_field.getText();
+
+		        // Validaciones
+		        if (nombre.isEmpty() || email.isEmpty() || usuario.isEmpty() || 
+		            password.isEmpty() || empresa.isEmpty()) {
 		            JOptionPane.showMessageDialog(ventana, 
-		                "Debe aceptar los términos y condiciones para registrarse.", "Términos no aceptados", JOptionPane.WARNING_MESSAGE);
-		            return;
-		        }
-		        
-				if(correo.equals("") || nombre.equals("") || usuario.equals("") || contra.equals("") || confirmContra.equals("") || empresa.equals("")) {
-					emailField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					nombre_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					usuario_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					passwordField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					empresa_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
-					return;
-				} else if (correo.equals("")) {
-					emailField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					JOptionPane.showMessageDialog(null, "El campo 'Correo Electrónico' esta vacio.", "Falta Correo Electrónico", JOptionPane.WARNING_MESSAGE);
-					return;
-				} else if (nombre.equals("")) {
-					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nombre_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					JOptionPane.showMessageDialog(null, "El campo 'Nombre Completo' esta vacio.", "Falta Nombre Completo", JOptionPane.WARNING_MESSAGE);
-					return;
-				} else if (usuario.equals("")) {
-					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					usuario_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					JOptionPane.showMessageDialog(null, "El campo 'Nombre de Usuario' esta vacio.", "Falta Nombre de Usuario", JOptionPane.WARNING_MESSAGE);
-					return;
-				} else if (contra.equals("")) {
-					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					JOptionPane.showMessageDialog(null, "El campo 'Contraseña' esta vacio.", "Falta Contraseña", JOptionPane.WARNING_MESSAGE);
-					return;
-				} else if (confirmContra.equals("")) {
-					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					passwordField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					JOptionPane.showMessageDialog(null, "El campo 'Verificar Contraseña' esta vacio.", "Falta Verificar Contraseña", JOptionPane.WARNING_MESSAGE);
-				} else if (empresa.equals("")) {
-					emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					empresa_field.setBorder(BorderFactory.createLineBorder(Color.red,3));
-					JOptionPane.showMessageDialog(null, "El campo 'Empresa' esta vacio.", "Falta Empresa", JOptionPane.WARNING_MESSAGE);
-				}
-				
-		        if(!contra.equals(confirmContra)) {
-		            nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-		            passwordField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-		            JOptionPane.showMessageDialog(ventana, 
-		                "Las contraseñas no coinciden.", 
-		                "Error de Confirmación", 
+		                "Todos los campos son obligatorios.", 
+		                "Error", 
 		                JOptionPane.ERROR_MESSAGE);
 		            return;
 		        }
-				
-				emailField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-				nombre_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-				usuario_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-				nueva_contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-				passwordField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-				empresa_field.setBorder(BorderFactory.createLineBorder(Color.green,3));
-				JOptionPane.showMessageDialog(null, "Se han aplicado los cambios exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-				
-				
-			}
+
+		        if (!password.equals(confirmPassword)) {
+		            JOptionPane.showMessageDialog(ventana, 
+		                "Las contraseñas no coinciden.", 
+		                "Error", 
+		                JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+
+		        // Validación opcional: espacios en el usuario
+		        if (usuario.contains(" ")) {
+		            JOptionPane.showMessageDialog(ventana, 
+		                "El nombre de usuario no puede contener espacios.", 
+		                "Error", 
+		                JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+
+		        // Registrar usuario en el modelo
+		        AuthModel modelo = new AuthModel();
+		        boolean registroExitoso = modelo.registrarUsuario(nombre, email, usuario, password, empresa);
+
+		        if (registroExitoso) {
+		            JOptionPane.showMessageDialog(ventana, 
+		                "¡Registro exitoso!", 
+		                "Éxito", 
+		                JOptionPane.INFORMATION_MESSAGE);
+		            ventana.dispose(); // Cerrar ventana de registro
+		            inicio(); // Volver a la pantalla de inicio
+		        } else {
+		            JOptionPane.showMessageDialog(ventana, 
+		                "Error al guardar los datos.", 
+		                "Error", 
+		                JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
 		});
 		
 		JButton regresar = new JButton();
