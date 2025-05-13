@@ -1,2 +1,5 @@
 Ana,ana@gmail.com,atorres,abc,Soluciones TI
 Reniery,relu_23@alu.uabcs.mx,Reny,1234,UABCS
+Diego,diego@gmail.com,Diego26,1234,IDS
+jonathan,jsoto@uabcs.mx,soto,12345,IDS
+alfredo,adame@gmail.com,adame,12345,IDS

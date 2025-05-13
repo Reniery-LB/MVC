@@ -1,11 +1,13 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -19,11 +21,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
+import controllers.HomeController;
 import models.AuthModel;
+import models.User;
 
 public class AuthView{
 	
@@ -92,25 +99,6 @@ public class AuthView{
 				AuthView.this.register();
 			}
 		});
-		
-//		JButton recuperar = new JButton("     RECUPERACIÓN DE CUENTA     ");
-//		recuperar.setIcon(new ImageIcon("img/recuperacion.png"));
-//		recuperar.setForeground(Color.BLACK);
-//		recuperar.setFont(new Font("Britannic", Font.BOLD, 18));
-//		recuperar.setBackground(Color.decode("#F9F6E6"));
-//		recuperar.setHorizontalTextPosition(JLabel.RIGHT);
-//		recuperar.setBorder(BorderFactory.createLineBorder(Color.WHITE,3));
-//		recuperar.setBounds(288, 552, 395, 58);
-//		mipanel.add(recuperar);
-//		
-//		recuperar.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				router("recuperacion");
-//				
-//			}
-//		});
 		
 		JLabel icon_acceder = new JLabel(new ImageIcon("img/acceder.png"));
 		icon_acceder.setBounds(216, 225, 183, 136);
@@ -255,38 +243,24 @@ public class AuthView{
 					return;
 				}
 				
-//				if(email.equals("") && password.equals("")) {
-//					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-//					contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-//					JOptionPane.showMessageDialog(null, "Por favor, rellene ambos campos.","Campos Vaciós", JOptionPane.WARNING_MESSAGE);
-//					
-//				} else if (email.equals("")) {
-//					nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-//					contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-//					JOptionPane.showMessageDialog(null, "Rellene el campo de 'Nombre de Usuario'.", "Falta Nombre de Usuario", JOptionPane.WARNING_MESSAGE);
-//				} else if (password.equals("")) {
-//					nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-//					contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
-//					JOptionPane.showMessageDialog(null, "Rellene el campo 'Contraseña'.", "Falta Contraseña", JOptionPane.WARNING_MESSAGE);
-//				}
-//				
-//				else {
-//					nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-//					contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
-//					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-//				}
-				
 					AuthModel modelo = new AuthModel();
 	
 					if(modelo.login(email, password)) {
 						nombreField.setBorder(BorderFactory.createLineBorder(Color.green,3));
 						contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
 						JOptionPane.showMessageDialog(null, "Bienvenido", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
+						ventana.dispose();
+						showUserManagement();
 					} else {
 						nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
 						contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
 						JOptionPane.showMessageDialog(null, "Error al acceder", "Verificar Correo y Contraseña", JOptionPane.WARNING_MESSAGE);
 					}
+					
+					ventana.dispose();
+					HomeController hc = new HomeController();
+					
+					hc.home();
 			
 		}
 	});
@@ -557,8 +531,7 @@ public class AuthView{
 		        String empresa = empresa_field.getText();
 
 		        // Validaciones
-		        if (nombre.isEmpty() || email.isEmpty() || usuario.isEmpty() || 
-		            password.isEmpty() || empresa.isEmpty()) {
+		        if (nombre.isEmpty() || email.isEmpty() || usuario.isEmpty() || password.isEmpty() || empresa.isEmpty()) {
 		            JOptionPane.showMessageDialog(ventana, 
 		                "Todos los campos son obligatorios.", 
 		                "Error", 
@@ -622,6 +595,67 @@ public class AuthView{
 		ventana.add(mipanel);
 		ventana.repaint();
 		ventana.revalidate();
+	}
+	
+	private void showUserManagement() {
+	    JFrame managementFrame = new JFrame("Gestión de Usuarios");
+	    managementFrame.setSize(900, 600);
+	    managementFrame.setLocationRelativeTo(null);
+	    managementFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    
+	    JPanel panel = new JPanel(new BorderLayout());
+	    
+	    // Crear tabla
+	    DefaultTableModel tableModel = new DefaultTableModel(
+	        new Object[]{"ID", "Nombre", "Email", "Usuario", "Empresa"}, 0);
+	    JTable userTable = new JTable(tableModel);
+	    userTable.setFont(new Font("Britannic", Font.PLAIN, 14));
+	    
+	    // Botones
+	    JButton refreshButton = new JButton("Actualizar");
+	    refreshButton.setFont(new Font("Britannic", Font.BOLD, 16));
+	    refreshButton.setBackground(Color.decode("#B9B28A"));
+	    refreshButton.setForeground(Color.WHITE);
+	    
+	    JButton backButton = new JButton("Regresar");
+	    backButton.setFont(new Font("Britannic", Font.BOLD, 16));
+	    backButton.setBackground(Color.decode("#B9B28A"));
+	    backButton.setForeground(Color.WHITE);
+	    
+	    // Panel de botones
+	    JPanel buttonPanel = new JPanel();
+	    buttonPanel.add(refreshButton);
+	    buttonPanel.add(backButton);
+	    
+	    // Cargar datos
+	    refreshTableData(tableModel);
+	    
+	    // Eventos
+	    refreshButton.addActionListener(e -> refreshTableData(tableModel));
+	    
+	    backButton.addActionListener(e -> {
+	        managementFrame.dispose();
+	        inicio();
+	    });
+	    
+	    // Añadir componentes
+	    panel.add(new JScrollPane(userTable), BorderLayout.CENTER);
+	    panel.add(buttonPanel, BorderLayout.SOUTH);
+	    
+	    managementFrame.add(panel);
+	    managementFrame.setVisible(true);
+	}
+
+	private void refreshTableData(DefaultTableModel tableModel) {
+	    tableModel.setRowCount(0); // Limpiar tabla
+	    
+	    AuthModel model = new AuthModel();
+	    List<User> users = model.getAllUsers();
+	    model.close();
+	    
+	    for (User user : users) {
+	        tableModel.addRow(user.toArray());
+	    }
 	}
 	
 	public void forgot() {

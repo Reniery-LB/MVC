@@ -1,2 +1,2 @@
-keyra,ochoa,keyraayari23@aluabcs.mx,1234
-reniery,lucero,relu23@aluabcs.mx,1234
+jonathan,soto,jsoto@uabcs.mx,12345
+alfredo,adame,adame@gmail.com,12345
