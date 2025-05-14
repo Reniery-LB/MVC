@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -250,7 +251,7 @@ public class AuthView{
 						contraField.setBorder(BorderFactory.createLineBorder(Color.green,3));
 						JOptionPane.showMessageDialog(null, "Bienvenido", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
 						ventana.dispose();
-						showUserManagement();
+						mostrarUsuarios();
 					} else {
 						nombreField.setBorder(BorderFactory.createLineBorder(Color.red,3));
 						contraField.setBorder(BorderFactory.createLineBorder(Color.red,3));
@@ -547,7 +548,6 @@ public class AuthView{
 		            return;
 		        }
 
-		        // Validación opcional: espacios en el usuario
 		        if (usuario.contains(" ")) {
 		            JOptionPane.showMessageDialog(ventana, 
 		                "El nombre de usuario no puede contener espacios.", 
@@ -556,7 +556,6 @@ public class AuthView{
 		            return;
 		        }
 
-		        // Registrar usuario en el modelo
 		        AuthModel modelo = new AuthModel();
 		        boolean registroExitoso = modelo.registrarUsuario(nombre, email, usuario, password, empresa);
 
@@ -597,21 +596,18 @@ public class AuthView{
 		ventana.revalidate();
 	}
 	
-	private void showUserManagement() {
-	    JFrame managementFrame = new JFrame("Gestión de Usuarios");
-	    managementFrame.setSize(900, 600);
-	    managementFrame.setLocationRelativeTo(null);
-	    managementFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	private void mostrarUsuarios() {
+	    JFrame mipanel = new JFrame("Gestión de Usuarios");
+	    mipanel.setSize(900, 600);
+	    mipanel.setLocationRelativeTo(null);
+	    mipanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    
 	    JPanel panel = new JPanel(new BorderLayout());
 	    
-	    // Crear tabla
-	    DefaultTableModel tableModel = new DefaultTableModel(
-	        new Object[]{"ID", "Nombre", "Email", "Usuario", "Empresa"}, 0);
+	    DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"ID", "Nombre", "Email", "Usuario", "Empresa"}, 0);
 	    JTable userTable = new JTable(tableModel);
 	    userTable.setFont(new Font("Britannic", Font.PLAIN, 14));
 	    
-	    // Botones
 	    JButton refreshButton = new JButton("Actualizar");
 	    refreshButton.setFont(new Font("Britannic", Font.BOLD, 16));
 	    refreshButton.setBackground(Color.decode("#B9B28A"));
@@ -622,32 +618,28 @@ public class AuthView{
 	    backButton.setBackground(Color.decode("#B9B28A"));
 	    backButton.setForeground(Color.WHITE);
 	    
-	    // Panel de botones
 	    JPanel buttonPanel = new JPanel();
 	    buttonPanel.add(refreshButton);
 	    buttonPanel.add(backButton);
 	    
-	    // Cargar datos
-	    refreshTableData(tableModel);
+	    refreshTabla(tableModel);
 	    
-	    // Eventos
-	    refreshButton.addActionListener(e -> refreshTableData(tableModel));
+	    refreshButton.addActionListener(e -> refreshTabla(tableModel));
 	    
 	    backButton.addActionListener(e -> {
-	        managementFrame.dispose();
+	        mipanel.dispose();
 	        inicio();
 	    });
 	    
-	    // Añadir componentes
 	    panel.add(new JScrollPane(userTable), BorderLayout.CENTER);
 	    panel.add(buttonPanel, BorderLayout.SOUTH);
 	    
-	    managementFrame.add(panel);
-	    managementFrame.setVisible(true);
+	    mipanel.add(panel);
+	    mipanel.setVisible(true);
 	}
 
-	private void refreshTableData(DefaultTableModel tableModel) {
-	    tableModel.setRowCount(0); // Limpiar tabla
+	private void refreshTabla(DefaultTableModel tableModel) {
+	    tableModel.setRowCount(0);
 	    
 	    AuthModel model = new AuthModel();
 	    List<User> users = model.getAllUsers();
