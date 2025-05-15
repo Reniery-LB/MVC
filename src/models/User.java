@@ -1,21 +1,24 @@
 package models;
 
+import java.sql.Date;
+
 public class User {
     public int id;
     public String name;
     public String email;
-    public String username;
-    public String company;
+    public String role;
+    public String phone;
+    public Date create_at;
+    public Date update_at;
     
-    public User(int id, String name, String email, String username, String company) {
+    public User(int id, String name, String email, String role, String phone, Date create, Date update) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.username = username;
-        this.company = company;
+        this.role = role;
+        this.phone = phone;
+        this.create_at = create;
+        this.update_at = update;
     }
     
-    public Object[] toArray() {
-        return new Object[]{id, name, email, username, company};
-    }
 }

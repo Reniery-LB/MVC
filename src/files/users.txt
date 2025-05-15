@@ -1,6 +1,0 @@
-Jonathan Soto,jsoto@uabcs.mx,jsoto,12345,UABCS,admin,6120000000
-Juanito Perez León,juanito@uabcs.mx,jperez,12345,UABCS,admin,6121111111
-Alberto Yakitori,alberto@uabcs.mx,ayakitori,12345,UABCS,client,6122222222
-Reniery Lucero,relu_23@alu.uabcs.mx,rlucero,1234,UABCS,admin,6130000000
-Ana Torres,ana@gmail.com,atorres,abc,Soluciones TI,client,6140000000
-Diego Martinez,diego@gmail.com,diego26,1234,IDS,admin,6150000000

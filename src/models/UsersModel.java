@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersModel {
-	private Connection conn;
+
+	
 	private List<User> usuarios = new ArrayList<>();
 	
 	public UsersModel() {
@@ -32,13 +33,17 @@ public class UsersModel {
 				
 				Integer id = rs.getInt(1);
 				String name = rs.getString(2); 
+				String email = rs.getString(3); 
+				String role = rs.getString(4); 
+				String phone = rs.getString(5); 
+				Date create_at = rs.getDate(6);
 				
 				System.out.println("empId:" + id);
 				System.out.println("firstName:" + name);
 				 
 				System.out.println(""); 
 				
-//				usuarios.add(new User(id,name,"","","",null,null));
+				usuarios.add(new User(id,name,email,role,phone,create_at,null));
 			}
 			
 			rs.close();
@@ -57,17 +62,9 @@ public class UsersModel {
 		return usuarios;
 	}
 	
-    public boolean isConnected() {
-        try {
-            return conn != null && !conn.isClosed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-	
 	public boolean remove(int id) {
 		
-		String query = "DELETE FROM users WHERE `users`.`id` = 4";
+		String query = "DELETE FROM users WHERE `users`.`id` = " + id;
 		Connection conn = null;
 		Statement stmt = null;
 		try {
@@ -93,19 +90,5 @@ public class UsersModel {
 		return false;
 		
 	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,55 +4,19 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
 import controllers.UsersController;
-import models.AuthModel;
 
 public class HomeView {
-	
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/world?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
-    private Connection connection;
-    
+
 	public HomeView() {
 	}
-	
-    public Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-        }
-        return connection;
-    }
-    
-    private static void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(null, 
-            mensaje, 
-            "Error de Base de Datos", 
-            JOptionPane.ERROR_MESSAGE);
-    }
-    
+
 	public void home()
 	{
 		JFrame ventana = new JFrame();
@@ -100,47 +64,13 @@ public class HomeView {
 				
 			}});
 		panel.add(btnNewButton2);
-		        DefaultTableModel model = new DefaultTableModel();
-		        model.addColumn("ID");
-		        model.addColumn("Nombre");
-		        model.addColumn("Email");
-		        model.addColumn("Rol");
-		        model.addColumn("Teléfono");
-		        model.addColumn("Creado en");
-		        
-		        
-		        try (Connection conn = getConnection();
-		             Statement stmt = conn.createStatement();
-		             ResultSet rs = stmt.executeQuery("SELECT * FROM users")) {
-		            
-		            while (rs.next()) {
-		                model.addRow(new Object[]{
-		                    rs.getInt("id"),
-		                    rs.getString("name"),
-		                    rs.getString("email"),
-		                    rs.getString("role"),
-		                    rs.getString("phone"),
-		                    rs.getTimestamp("create_at")
-		                });
-		            }
-		            
-		            JTable table = new JTable(model);
-		            JScrollPane scrollPane = new JScrollPane(table);
-		            
-		            JFrame frame = new JFrame("Lista de Usuarios");
-		            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		            frame.add(scrollPane);
-		            frame.pack();
-		            frame.setSize(900, 400);
-		            frame.setLocationRelativeTo(null);
-		            frame.setVisible(true);
-		            
-		        } catch (SQLException e) {
-		            mostrarError("Error al obtener usuarios: " + e.getMessage());
-		        }
-
+		
+		 
+		
 		ventana.add(panel);
 		ventana.repaint();
 		ventana.revalidate();
 	}
 }
+
+

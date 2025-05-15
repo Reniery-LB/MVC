@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import controllers.UsersController;
 import models.User;
@@ -48,38 +52,46 @@ public class UsersView {
 		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(lblNewLabel);
 		
-		int x = 100;
-		for (Iterator iterator = usuarios.iterator(); iterator.hasNext();) {
-			User usuario = (User) iterator.next();
-			
-			JLabel user = new JLabel(usuario.name);
-			user.setForeground(new Color(0, 0, 0)); 
-			user.setBounds(50, x, 210, 26);
-			user.setHorizontalAlignment(JLabel.CENTER);
-			panel.add(user);
-			
-			JButton delete = new JButton("Eliminar");
-			delete.setBounds(250,x, 200,40);
-			delete.addActionListener(new ActionListener() {
+		
+		String[] columnas = {"ID", "Nombre", "Email", "Rol", "Teléfono","Create_At"};
+	    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+	    JTable tabla = new JTable(modelo);
 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					UsersModel um = new UsersModel();
-					um.remove(0);
-					
-					ventana.dispose();
-					
-					UsersController us = new UsersController();
-					us.index();
-				}
-				
-			});
-			panel.add(delete);
-			
-			x+= 35;
-			
-		}
+	    for (Object user : usuarios) {
+	        User usuario = (User) user;
+	        Object[] fila = {
+	            usuario.id,
+	            usuario.name,
+	            usuario.email,
+	            usuario.role,
+	            usuario.phone
+	        };
+	        modelo.addRow(fila);
+	    }
+
+	    JScrollPane scrollpane = new JScrollPane(tabla);
+	    scrollpane.setBounds(50, 80, 800, 300); 	    panel.add(scrollpane);
+
+	   
+	    int y = 400;
+	    for (Object obj : usuarios) {
+	        User usuario = (User) obj;
+
+	        JButton delete = new JButton("Eliminar ");
+	        delete.setBounds(50, y, 200, 30);
+	        delete.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                UsersModel um = new UsersModel();
+	                um.remove(usuario.id);
+	                ventana.dispose();
+	                UsersController us = new UsersController();
+	                us.index();
+	            }
+	        });
+	        panel.add(delete);
+	        
+	    }
 		
 		 
 		
@@ -87,5 +99,9 @@ public class UsersView {
 		ventana.repaint();
 		ventana.revalidate();
 	}
+	
+	
+
+
 
 }
