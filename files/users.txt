@@ -3,3 +3,5 @@ Reniery,reni@gmail.com,relu,1234,ids
 reni,reni@gmail.com,relu,1234,uabcs
 Carlos Luquin,luquin@gmail.co m,luqui,123456,ids
 Keyra Ochoa,keyra@gmail.com,key,1234,ids
+Jhonatan,jsoto@gmail.com,Soto,1234,IDS
+Alfredo,alfredo@gmail.com,Yes,1234,uabcs
