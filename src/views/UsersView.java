@@ -49,7 +49,6 @@ public class UsersView {
 	    lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
 	    panel.add(lblNewLabel);
 
-	    // Tabla de usuarios (código existente)
 	    String[] columnas = {"ID", "Nombre", "Email", "Rol", "Teléfono", "Create_At"};
 	    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 	    JTable tabla = new JTable(modelo);
@@ -64,35 +63,35 @@ public class UsersView {
 	    scrollpane.setBounds(50, 80, 800, 300);
 	    panel.add(scrollpane);
 
-	    // Botón para agregar nuevo usuario
 	    JButton btnAgregar = new JButton("Agregar Usuario");
 	    btnAgregar.setBounds(50, 400, 200, 30);
 	    btnAgregar.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            // Abre un formulario para agregar usuario
 	            agregarUsuario(ventana);
 	        }
 	    });
 	    panel.add(btnAgregar);
 
-	    // Botones de eliminar (código existente)
 	    int y = 450;
 	    for (Object obj : usuarios) {
 	        User usuario = (User) obj;
+	       
 	        JButton delete = new JButton("Eliminar " + usuario.id);
-	        delete.setBounds(50, y, 200, 30);
-	        delete.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                UsersModel um = new UsersModel();
-	                um.remove(usuario.id);
-	                ventana.dispose();
-	                UsersController us = new UsersController();
-	                us.index();
-	            }
+	        delete.setBounds(50, y, 100, 30);
+	        delete.addActionListener(e -> {
+	            UsersModel um = new UsersModel();
+	            um.remove(usuario.id);
+	            ventana.dispose();
+	            new UsersController().index();
 	        });
 	        panel.add(delete);
+	        
+	        JButton edit = new JButton("Editar " + usuario.id);
+	        edit.setBounds(160, y, 100, 30);
+	        edit.addActionListener(e -> editarUsuario(ventana, usuario));
+	        panel.add(edit);
+	        
 	        y += 40;
 	    }
 
@@ -101,7 +100,6 @@ public class UsersView {
 	    ventana.revalidate();
 	}
 
-	// Método para abrir formulario de inserción
 	private void agregarUsuario(JFrame parentFrame) {
 	    JFrame formulario = new JFrame("Agregar Usuario");
 	    formulario.setSize(400, 400);
@@ -112,7 +110,6 @@ public class UsersView {
 	    panel.setLayout(null);
 	    panel.setBounds(0, 0, 400, 400);
 
-	    // Campos del formulario
 	    JLabel lblNombre = new JLabel("Nombre:");
 	    lblNombre.setBounds(20, 20, 100, 25);
 	    JTextField txtNombre = new JTextField();
@@ -133,7 +130,6 @@ public class UsersView {
 	    JTextField txtTelefono = new JTextField();
 	    txtTelefono.setBounds(130, 140, 200, 25);
 
-	    // Botón de guardar
 	    JButton btnGuardar = new JButton("Guardar");
 	    btnGuardar.setBounds(150, 200, 100, 30);
 	    btnGuardar.addActionListener(new ActionListener() {
@@ -151,14 +147,13 @@ public class UsersView {
 	                JOptionPane.showMessageDialog(formulario, "Usuario agregado correctamente");
 	                formulario.dispose();
 	                parentFrame.dispose();
-	                new UsersController().index(); // Refresca la lista
+	                new UsersController().index();
 	            } else {
 	                JOptionPane.showMessageDialog(formulario, "Error al agregar usuario", "Error", JOptionPane.ERROR_MESSAGE);
 	            }
 	        }
 	    });
 
-	    // Agregar componentes al panel
 	    panel.add(lblNombre);
 	    panel.add(txtNombre);
 	    panel.add(lblEmail);
@@ -173,6 +168,52 @@ public class UsersView {
 	    formulario.setVisible(true);
 	}
 	
+	private void editarUsuario(JFrame parentFrame, User usuario) {
+	    JFrame formulario = new JFrame("Editar Usuario");
+	    formulario.setSize(400, 400);
+	    formulario.setLocationRelativeTo(parentFrame);
+	    formulario.setLayout(null);
+
+	    JPanel panel = new JPanel();
+	    panel.setLayout(null);
+	    panel.setBounds(0, 0, 400, 400);
+
+	    JTextField txtNombre = new JTextField(usuario.name);
+	    txtNombre.setBounds(130, 20, 200, 25);
+
+	    JTextField txtEmail = new JTextField(usuario.email);
+	    txtEmail.setBounds(130, 60, 200, 25);
+
+	    JTextField txtRol = new JTextField(usuario.role);
+	    txtRol.setBounds(130, 100, 200, 25);
+
+	    JTextField txtTelefono = new JTextField(usuario.phone);
+	    txtTelefono.setBounds(130, 140, 200, 25);
+
+	    JButton btnGuardar = new JButton("Guardar Cambios");
+	    btnGuardar.setBounds(150, 200, 150, 30);
+	    btnGuardar.addActionListener(e -> {
+	        String nombre = txtNombre.getText();
+	        String email = txtEmail.getText();
+	        String rol = txtRol.getText();
+	        String telefono = txtTelefono.getText();
+
+	        UsersModel um = new UsersModel();
+	        boolean exito = um.update(usuario.id, nombre, email, rol, telefono); // UPDATE
+
+	        if (exito) {
+	            JOptionPane.showMessageDialog(formulario, "Usuario actualizado");
+	            formulario.dispose();
+	            parentFrame.dispose();
+	            new UsersController().index();
+	        }
+	    });
+	    panel.add(new JLabel("Nombre:")).setBounds(20, 20, 100, 25);
+	    panel.add(txtNombre);
+	    formulario.add(btnGuardar);
+	    formulario.add(panel);
+	    formulario.setVisible(true);
+	}
 	
 
 
